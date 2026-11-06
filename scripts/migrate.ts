@@ -54,7 +54,8 @@ async function migrate() {
     
     // Applying migrations
     console.log(`Applying migrations to ${mode} database: ${dbName}`)
-    await execAsync(`wrangler d1 migrations apply ${dbName} --${mode}`)
+    // ✅ 核心修复：添加 npx wrangler@4 前缀，强制子进程通过最新 v4 版本执行迁移
+    await execAsync(`npx wrangler@4 d1 migrations apply ${dbName} --${mode}`)
 
     console.log('Migration completed successfully!')
   } catch (error) {
